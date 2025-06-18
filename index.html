@@ -37,7 +37,7 @@
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(29, 53, 87, 0.8), rgba(29, 53, 87, 0.9)), 
-                        url('https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+                        url('assets/images/Screenshot_20250616_191825_Gallery.jpg') no-repeat center center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -228,6 +228,27 @@
         .card-content li {
             margin-bottom: 10px;
         }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .image-grid img:hover {
+            transform: scale(1.03);
+        }
         
         /* Evidence Section */
         .evidence {
@@ -262,6 +283,8 @@
             justify-content: center;
             color: var(--dark);
             font-size: 2rem;
+            background-size: cover;
+            background-position: center;
         }
         
         .evidence-info {
@@ -271,6 +294,25 @@
         .evidence-info h3 {
             margin-bottom: 10px;
             color: var(--primary);
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         
         /* Footer */
@@ -338,6 +380,10 @@
                     <div class="timeline-date">14/06</div>
                     <h3>Golpe Ilegal</h3>
                     <p>Lucas é atingido por uma canelada ilegal enquanto estava com três apoios no chão, causando ferimento grave.</p>
+                    <div class="image-grid">
+                        <img src="assets/images/Screenshot_20250616_191124_YouTube.jpg" alt="Corte grave no rosto">
+                        <img src="assets/images/imagem_realce_corte.png" alt="Sangue na cara com olhos fechados">
+                    </div>
                 </div>
             </div>
             <div class="timeline-item">
@@ -345,6 +391,7 @@
                     <div class="timeline-date">Pós-Golpe</div>
                     <h3>Avaliação Médica Precária</h3>
                     <p>Médico avalia Lucas sem seguir protocolos neurológicos completos, apenas colocando gaze no ferimento.</p>
+                    <img src="assets/images/IMG-20250616-WA0198.jpg" alt="Atendimento médico focado na ferida" style="width:100%; max-width:600px; margin-top:20px; border-radius:8px;">
                 </div>
             </div>
             <div class="timeline-item">
@@ -404,6 +451,12 @@
                     <li>Posição clara de três apoios no momento do chute</li>
                     <li>Impacto direto no rosto, causando corte grave</li>
                 </ul>
+                <div class="video-container">
+                    <video controls>
+                        <source src="assets/videos/VID-20250615-WA0017.mp4" type="video/mp4">
+                        Seu navegador não suporta vídeos HTML5.
+                    </video>
+                </div>
                 <p>O próprio árbitro admitiu em áudio: "Tava com 3 apoios... caralho"</p>
             </div>
 
@@ -425,6 +478,7 @@
                     <li>Árbitro não assumiu responsabilidade pela decisão</li>
                     <li>Evento televisionado aumenta exposição do erro</li>
                 </ul>
+                <img src="assets/images/IMG-20250616-WA0198.jpg" alt="Atendimento médico inadequado" style="width:100%; max-width:500px; margin-top:20px; border-radius:8px;">
             </div>
 
             <div id="estrategia" class="card-content">
@@ -446,6 +500,10 @@
                     <li>Falta de memória sobre momentos da luta</li>
                     <li>Ausência de avaliação neurológica adequada</li>
                 </ul>
+                <div class="image-grid">
+                    <img src="assets/images/Screenshot_20250616_191825_Gallery.jpg" alt="Olhar vago após o golpe">
+                    <img src="assets/images/imagem_realce_corte.png" alt="Sangue na cara com olhos fechados">
+                </div>
             </div>
         </div>
     </section>
@@ -456,31 +514,31 @@
             <h2 class="section-title">Provas Técnicas</h2>
             <div class="evidence-grid">
                 <div class="evidence-item">
-                    <div class="evidence-img">📸</div>
+                    <div class="evidence-img" style="background-image: url('assets/images/Screenshot_20250616_191124_YouTube.jpg')"></div>
                     <div class="evidence-info">
-                        <h3>Frame do Golpe Ilegal</h3>
-                        <p>Imagem exata mostrando os três apoios no momento do impacto</p>
+                        <h3>Corte Grave no Rosto</h3>
+                        <p>Imagem mostra a extensão do ferimento causado pelo golpe ilegal</p>
                     </div>
                 </div>
                 <div class="evidence-item">
-                    <div class="evidence-img">🎥</div>
+                    <div class="evidence-img" style="background-image: url('assets/images/Screenshot_20250616_191825_Gallery.jpg')"></div>
                     <div class="evidence-info">
-                        <h3>Vídeo da Sequência</h3>
-                        <p>30 segundos mostrando o antes, durante e após o golpe</p>
+                        <h3>Olhar Vago e Desorientado</h3>
+                        <p>Estado claro de concussão imediatamente após o golpe</p>
                     </div>
                 </div>
                 <div class="evidence-item">
-                    <div class="evidence-img">📝</div>
+                    <div class="evidence-img" style="background-image: url('assets/images/imagem_realce_corte.png')"></div>
                     <div class="evidence-info">
-                        <h3>Regulamento Oficial</h3>
-                        <p>Item 8 destacando a ilegalidade de golpes com três apoios</p>
+                        <h3>Sangue e Visão Comprometida</h3>
+                        <p>Atleta com olhos fechados e visão totalmente obstruída</p>
                     </div>
                 </div>
                 <div class="evidence-item">
-                    <div class="evidence-img">🎤</div>
+                    <div class="evidence-img" style="background-image: url('assets/images/IMG-20250616-WA0198.jpg')"></div>
                     <div class="evidence-info">
-                        <h3>Áudio do Árbitro</h3>
-                        <p>"Tava com 3 apoios... caralho" - reconhecimento da ilegalidade</p>
+                        <h3>Atendimento Médico Inadequado</h3>
+                        <p>Médico focando apenas no ferimento, ignorando sintomas neurológicos</p>
                     </div>
                 </div>
             </div>
@@ -570,6 +628,18 @@
                 item.style.transform = 'translateY(50px)';
                 item.style.transition = 'all 0.5s ease';
                 observer.observe(item);
+            });
+
+            // Auto-play video when card opens
+            const videoCards = document.querySelectorAll('.card-btn');
+            videoCards.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const videos = document.querySelectorAll('video');
+                    videos.forEach(video => {
+                        video.pause();
+                        video.currentTime = 0;
+                    });
+                });
             });
         });
     </script>
