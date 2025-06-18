@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso Lucas "Karateca" - Dossiê Interativo</title>
+    <style>
+        :root {
+            --primary: #e63946;
+            --dark: #1d3557;
+            --light: #f1faee;
+            --accent: #a8dadc;
+            --secondary: #457b9d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(29, 53, 87, 0.8), rgba(29, 53, 87, 0.9)), 
+                        url('https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            background: #f03040;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 50px 0;
+            background-color: var(--secondary);
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: var(--light);
+        }
+        
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--dark);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--dark);
+            transform: rotate(45deg);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+        }
+        
+        .timeline-date {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: var(--primary);
+            color: var(--light);
+            border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        /* Cards Section */
+        .cards-section {
+            padding: 80px 0;
+            background-color: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--light);
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card-btn {
+            background: var(--secondary);
+            color: var(--light);
+            border: none;
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            background: #3a7ca5;
+        }
+        
+        .card-content {
+            display: none;
+            padding: 30px;
+            background-color: var(--light);
+            color: var(--dark);
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card-content h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .card-content ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card-content li {
+            margin-bottom: 10px;
+        }
+        
+        /* Evidence Section */
+        .evidence {
+            padding: 80px 0;
+            background-color: var(--secondary);
+        }
+        
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .evidence-item {
+            background-color: var(--dark);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .evidence-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .evidence-img {
+            height: 200px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 2rem;
+        }
+        
+        .evidence-info {
+            padding: 20px;
+        }
+        
+        .evidence-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-btn {
+            margin: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 20px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: 20px;
+                right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Caso Lucas "Karateca"</h1>
+        <p>Dossiê interativo sobre a violação das regras e ética esportiva no Jungle Fight</p>
+        <button class="btn" onclick="scrollToSection('timeline')">Ver Linha do Tempo</button>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline" id="timeline">
+        <div class="container">
+            <h2 class="section-title">Linha do Tempo</h2>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">14/06</div>
+                    <h3>Golpe Ilegal</h3>
+                    <p>Lucas é atingido por uma canelada ilegal enquanto estava com três apoios no chão, causando ferimento grave.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Pós-Golpe</div>
+                    <h3>Avaliação Médica Precária</h3>
+                    <p>Médico avalia Lucas sem seguir protocolos neurológicos completos, apenas colocando gaze no ferimento.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Áudio</div>
+                    <h3>Adversário Admite Raiva</h3>
+                    <p>"Eu chutei por raiva, não por maldade" - Adversário confirma intenção emocional no golpe.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Pressão</div>
+                    <h3>Organizador Pressiona</h3>
+                    <p>Áudio revela organizador do evento pressionando Lucas a continuar a luta.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Repercussão</div>
+                    <h3>Matéria na Globo</h3>
+                    <p>Caso ganha repercussão nacional com matéria em rede nacional de TV.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-section" id="cards">
+        <div class="container">
+            <h2 class="section-title">Análise do Caso</h2>
+            <div class="cards-container">
+                <button class="card-btn" onclick="toggleCard('regras')">⚖️ Regras Violadas</button>
+                <button class="card-btn" onclick="toggleCard('ilegalidade')">🚫 Ilegalidade Técnica</button>
+                <button class="card-btn" onclick="toggleCard('frases')">💬 Frases Comprometedoras</button>
+                <button class="card-btn" onclick="toggleCard('fragilidades')">💥 Fragilidades da Defesa</button>
+                <button class="card-btn" onclick="toggleCard('estrategia')">🎯 Estratégia Jurídica</button>
+                <button class="card-btn" onclick="toggleCard('concussao')">🧠 Indícios de Concussão</button>
+            </div>
+
+            <div id="regras" class="card-content">
+                <h3>Violação das Regras do Evento</h3>
+                <p>Segundo o regulamento oficial do Jungle Fight (baseado nas Unified Rules of MMA):</p>
+                <ul>
+                    <li>Golpes em adversário com três apoios no chão são ilegais e resultam em desclassificação</li>
+                    <li>O árbitro deve interromper imediatamente a luta em caso de golpe ilegal grave</li>
+                    <li>O médico tem autoridade para interromper a luta se julgar necessário</li>
+                </ul>
+                <p>Nenhuma dessas regras foi seguida corretamente.</p>
+            </div>
+
+            <div id="ilegalidade" class="card-content">
+                <h3>Prova Técnica da Ilegalidade</h3>
+                <p>Análise frame a frame mostra:</p>
+                <ul>
+                    <li>Joelho esquerdo de Lucas em contato com o solo</li>
+                    <li>Mão direita também apoiada</li>
+                    <li>Posição clara de três apoios no momento do chute</li>
+                    <li>Impacto direto no rosto, causando corte grave</li>
+                </ul>
+                <p>O próprio árbitro admitiu em áudio: "Tava com 3 apoios... caralho"</p>
+            </div>
+
+            <div id="frases" class="card-content">
+                <h3>Declarações Comprometedoras</h3>
+                <ul>
+                    <li><strong>Adversário:</strong> "Eu chutei por raiva, não por maldade" (confissão de intenção emocional)</li>
+                    <li><strong>Árbitro:</strong> "Se ele continuou, é porque estava bem" (transferindo responsabilidade)</li>
+                    <li><strong>Narrador:</strong> "Vão esperar o sangue cair na plateia?" (criticando a continuidade)</li>
+                    <li><strong>Organizador:</strong> "Você tem que continuar" (pressão indevida)</li>
+                </ul>
+            </div>
+
+            <div id="fragilidades" class="card-content">
+                <h3>Fragilidades na Defesa do Evento</h3>
+                <ul>
+                    <li>Regras não foram formalmente lidas antes da luta (apenas enviadas por WhatsApp)</li>
+                    <li>Médico não aplicou testes neurológicos padrão (King-Devick, pupilas, orientação)</li>
+                    <li>Árbitro não assumiu responsabilidade pela decisão</li>
+                    <li>Evento televisionado aumenta exposição do erro</li>
+                </ul>
+            </div>
+
+            <div id="estrategia" class="card-content">
+                <h3>Estratégia Jurídica e Midiática</h3>
+                <ul>
+                    <li>Recurso formal à comissão atlética com todas as provas</li>
+                    <li>Pressão midiática com divulgação seletiva de evidências</li>
+                    <li>Possibilidade de ação civil por danos morais e físicos</li>
+                    <li>Negociação para acordo com reconhecimento de erro e compensação</li>
+                </ul>
+            </div>
+
+            <div id="concussao" class="card-content">
+                <h3>Sinais Claros de Concussão</h3>
+                <ul>
+                    <li>Olhar vago e desorientado após o golpe</li>
+                    <li>Relato de visão turva e "tudo escuro"</li>
+                    <li>Movimentos lentos e reação atrasada</li>
+                    <li>Falta de memória sobre momentos da luta</li>
+                    <li>Ausência de avaliação neurológica adequada</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evidence Section -->
+    <section class="evidence">
+        <div class="container">
+            <h2 class="section-title">Provas Técnicas</h2>
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <div class="evidence-img">📸</div>
+                    <div class="evidence-info">
+                        <h3>Frame do Golpe Ilegal</h3>
+                        <p>Imagem exata mostrando os três apoios no momento do impacto</p>
+                    </div>
+                </div>
+                <div class="evidence-item">
+                    <div class="evidence-img">🎥</div>
+                    <div class="evidence-info">
+                        <h3>Vídeo da Sequência</h3>
+                        <p>30 segundos mostrando o antes, durante e após o golpe</p>
+                    </div>
+                </div>
+                <div class="evidence-item">
+                    <div class="evidence-img">📝</div>
+                    <div class="evidence-info">
+                        <h3>Regulamento Oficial</h3>
+                        <p>Item 8 destacando a ilegalidade de golpes com três apoios</p>
+                    </div>
+                </div>
+                <div class="evidence-item">
+                    <div class="evidence-img">🎤</div>
+                    <div class="evidence-info">
+                        <h3>Áudio do Árbitro</h3>
+                        <p>"Tava com 3 apoios... caralho" - reconhecimento da ilegalidade</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Justiça no Esporte</h3>
+                <p>Este dossiê foi criado para expor violações éticas e técnicas no MMA profissional</p>
+                <div>
+                    <button class="btn footer-btn" onclick="window.print()">📥 Baixar Dossiê</button>
+                    <button class="btn footer-btn" onclick="alert('Contato: equipe@justicanocage.com')">✉️ Contato</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Toggle cards
+        function toggleCard(cardId) {
+            // Hide all card contents first
+            const allCards = document.querySelectorAll('.card-content');
+            allCards.forEach(card => {
+                card.style.display = 'none';
+            });
+            
+            // Show the selected card
+            const selectedCard = document.getElementById(cardId);
+            if (selectedCard.style.display === 'block') {
+                selectedCard.style.display = 'none';
+            } else {
+                selectedCard.style.display = 'block';
+            }
+        }
+
+        // Close card when clicking outside
+        document.addEventListener('click', function(event) {
+            const cardContents = document.querySelectorAll('.card-content');
+            const cardButtons = document.querySelectorAll('.card-btn');
+            
+            let isClickInside = false;
+            
+            cardButtons.forEach(button => {
+                if (button.contains(event.target)) {
+                    isClickInside = true;
+                }
+            });
+            
+            cardContents.forEach(content => {
+                if (content.contains(event.target)) {
+                    isClickInside = true;
+                }
+            });
+            
+            if (!isClickInside) {
+                cardContents.forEach(content => {
+                    content.style.display = 'none';
+                });
+            }
+        });
+
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            timelineItems.forEach(item => {
+                item.style.opacity = 0;
+                item.style.transform = 'translateY(50px)';
+                item.style.transition = 'all 0.5s ease';
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
